@@ -95,9 +95,6 @@ border: 1px solid cyan;
         display: flex;
         
     }
-    .HeaderItems{
-        display: flex;
-        flex-direction: column;
-    }
+
 }
 
