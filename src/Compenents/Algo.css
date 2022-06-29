@@ -1,0 +1,32 @@
+.grid{
+margin:20vh;
+display: flex ;
+flex-direction: column;
+justify-content: center;
+position: relative;
+}
+.row{
+  margin-bottom: -4.5px;
+}
+.startButton{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 15vh;
+    margin: 0 auto;
+    border-radius: 12px;
+    font-size:2rem;
+}
+@media (max-width: 1500px) {
+    .grid{
+        margin-left: 20vw;
+    }
+    
+}
+.Header{
+    padding-top: 1px;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    margin:0;
+}
