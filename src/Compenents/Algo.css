@@ -23,12 +23,7 @@ align-self: center;
     margin-top: 3vh;
 
 }
-@media (max-width: 1500px) {
-    .grid{
 
-    }
-    
-}
 .body{
     display:flex;
     flex-direction: column;
