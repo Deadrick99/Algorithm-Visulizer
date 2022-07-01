@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { getNodesInShortestPathOrder } from "../Algorithms/dijkstra";
-import{setFinish} from "./Node";
 import "./Algo.css";
 import Node from "./Node";
 import dijkstra from "../Algorithms/dijkstra";
@@ -160,7 +159,6 @@ function initGrid() {
   return grid;
 };
 function createNode  (col, row) {
-  const flase =false;
   return {
     col,
     row,
