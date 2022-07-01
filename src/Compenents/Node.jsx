@@ -1,36 +1,35 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import "./Node.css";
-export default class Node extends Component {
-  render() {
+ function Node(props)  {
+   const [isFinish,setIsFinish] = useState(false); 
+   const [isStart,setIsStart] = useState(false); 
+   const [isWall,setIsWall] = useState(false); 
     const {
-         row,
+      row,
       col,
-      isFinish,
-      isStart,
-      isWall,
       onMouseDown,
       onMouseEnter,
       onMouseUp,
       onClick,
-    } = this.props;
-    var extraClassName = "";
-    if(isWall===true)
-    extraClassName = "node-wall";
-    else if (isFinish === true)
-    extraClassName = "node-finish";
-    else if(isStart === true)
-    extraClassName = "node-start";
-   
+    } = props;
+    useEffect(() =>{
+      setIsFinish(props.isFinish);
+      setIsStart(props.isStart);
+      setIsWall(props.isWall);
+    },[props,isWall])
     return (
       <div
-        id={`node-${row}-${col}`}
-        className={`node ${extraClassName}`}
-        onMouseDown={() => onMouseDown(row, col)}
+        id={`node-${props.row}-${props.col}`}
+        className={isStart ? 'node node-start':isFinish?'node node-finish' : isWall ?'node node-wall' : 'node '}
+        onMouseDown={() =>onMouseDown(row, col)}
         onMouseEnter={() => onMouseEnter(row, col)}
         onMouseUp={() => onMouseUp()}
         onClick ={()=> onClick(row,col)}
+//
         >
   </div>
     );
   }
-}
+
+export default Node;

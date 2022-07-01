@@ -1,32 +1,35 @@
 .grid{
-margin:20vh;
-display: flex ;
-flex-direction: column;
-justify-content: center;
-position: relative;
+
+margin-top: 5vh;
+display: inline-block;
+align-self: center;
+
 }
 .row{
-  margin-bottom: -4.5px;
+  height: 1.75vh;
+  align-self: center;
+
 }
 .startButton{
-    display: flex;
-    justify-content: center;
-    position: relative;
+    display: block;
     top: 15vh;
-    margin: 0 auto;
     border-radius: 12px;
     font-size:2rem;
+    width: 3vw;
+    height: 4vw;
+    min-height: 40px;
+    min-width: 25px;
+    max-height: 50px;
+    margin-top: 3vh;
+
 }
 @media (max-width: 1500px) {
     .grid{
-        margin-left: 20vw;
+
     }
     
 }
-.Header{
-    padding-top: 1px;
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    margin:0;
+.body{
+    display:flex;
+    flex-direction: column;
 }
