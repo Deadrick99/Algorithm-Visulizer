@@ -1,10 +1,7 @@
 import classes from "./Header.module.css";
-import styles from "./Header.module.css";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { BiUpArrow } from "react-icons/bi";
 import { BiDownArrow } from "react-icons/bi";
 import { useState } from "react";
-import { useEffect } from "react";
 const HeaderItems = (props) => {
   const [isAlgoUp, setIsAlgoUp] = useState(false);
   const [isNodeUp, setIsNodeUp] = useState(false);
