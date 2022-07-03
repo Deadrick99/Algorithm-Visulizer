@@ -3,7 +3,7 @@ import { getNodesInShortestPathOrder } from "../Algorithms/dijkstra";
 import "./Algo.css";
 import Node from "./Node";
 import dijkstra from "../Algorithms/dijkstra";
-import Header from "./Header";
+import Header from "../Header/Header";
 import {FaPlay} from "react-icons/fa";
 var startNodeCol = 15;
 var startNodeRow= 10;
