@@ -21,7 +21,7 @@ function Maze(
   heightEnd,
   horizontal
 ) {
-  if (widthEnd - width < 2 || heightEnd - height < 2) return;
+  if (widthEnd - width < 3 || heightEnd - height < 3) return;
 
   //draw walls randomly in vertical direction not to interfere with start or finish node
   if (horizontal) {
