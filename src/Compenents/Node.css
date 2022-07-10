@@ -1,15 +1,23 @@
 .node {
-    height: 1.75vh;
-    width:1.25vw;
+    height: 3.5vh;
+    width:1.75vw;
     border: 1px solid black;
     display: inline-flex;
+    background-color: white;
 }
 @media (max-width:1500px) {
     .node{
-        width: 1vw;
+        width: 1.5vw;
 
     }
     
+}
+@media (max-width:500px) {
+    .node {
+        width: 1.25vw;
+
+    }
+
 }
 .node-finish {
     background-color: red;

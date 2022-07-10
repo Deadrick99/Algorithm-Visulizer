@@ -5,11 +5,13 @@ import { useState } from "react";
 const HeaderItems = (props) => {
   const [isAlgoUp, setIsAlgoUp] = useState(false);
   const [isNodeUp, setIsNodeUp] = useState(false);
+
   const onClick = props.onClick;
 
   const handleAlgoHeaderClick = () => {
     if (isAlgoUp === false) {
       setIsAlgoUp(true);
+      setIsNodeUp(false);
     } else {
       setIsAlgoUp(false);
     }
@@ -17,6 +19,7 @@ const HeaderItems = (props) => {
   const handleNodeHeaderClick = () => {
     if (isNodeUp === false) {
       setIsNodeUp(true);
+      setIsAlgoUp(false);
     } else {
       setIsNodeUp(false);
     }
@@ -50,6 +53,7 @@ const HeaderItems = (props) => {
             onClick={() => {
               onClick("ALGORITHM", "DIJKSTRA");
               props.isMobile && props.closeMobileNav();
+              setIsAlgoUp(false);
             }}
           >
             Dijkstra
@@ -79,6 +83,7 @@ const HeaderItems = (props) => {
             onClick={() => {
               onClick("NODE", "START");
               props.isMobile && props.closeMobileNav();
+              setIsNodeUp(false);
             }}
           >
             Start
@@ -87,6 +92,7 @@ const HeaderItems = (props) => {
             onClick={() => {
               onClick("NODE", "FINISH");
               props.isMobile && props.closeMobileNav();
+              setIsNodeUp(false);
             }}
           >
             Finish
@@ -95,6 +101,7 @@ const HeaderItems = (props) => {
             onClick={() => {
               onClick("NODE", "WALL");
               props.isMobile && props.closeMobileNav();
+              setIsNodeUp(false);
             }}
           >
             Wall

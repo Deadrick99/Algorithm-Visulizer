@@ -28,6 +28,7 @@ const MobileNavigation = (props) => {
   const onClick = props.onClick;
   return (
     <nav className={classes.MobileNavigation}>
+      <div className={classes.MobileTitle}>Algorithm Visualizer</div>
       {open ? closeIcon : openIcon}
       {open && (
         <HeaderItems

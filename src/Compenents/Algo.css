@@ -1,25 +1,37 @@
+/*
+Colors
+bright orange :#FF6600
+dull orange:#d16e3a
+grey:#7e7f81
+almost white:#e1ecec
+almost black:#262937
+*/
 .grid{
 
 margin-top: 5vh;
 display: inline-block;
 align-self: center;
 
+
+
 }
 .row{
-  height: 1.75vh;
+  height: 3.5vh;
   align-self: center;
 
 }
 .startButton{
+    background-color: #262937;
+    color: white;
     display: block;
     top: 15vh;
     border-radius: 12px;
-    font-size:2rem;
-    width: 3vw;
+    font-size:1.5rem;
+    /* width: 3vw;
     height: 4vw;
     min-height: 40px;
     min-width: 25px;
-    max-height: 50px;
+    max-height: 50px; */
     margin-top: 3vh;
 
 }

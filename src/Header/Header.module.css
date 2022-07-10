@@ -1,5 +1,5 @@
 .Header{
-    background-color: #181818;
+    background-color: #262937;
     height:10vh;
     min-height: 6vw;
     width: 100vw;
@@ -13,8 +13,9 @@
     float: left;
     position: relative;
 }
-div{
+.HeaderItems div{
     list-style:none;
+    cursor:pointer;
 }
 
 
@@ -36,46 +37,43 @@ div{
 }
 .HeaderAlgorithms,.HeaderAlgo,.HeaderIcon,.HeaderHelp,.HeaderNodes{
     display: flex;
-    padding:4vh 5vw;
+    margin:4vh 5vw;
     color: white;
     justify-content: center;
     float: left;
     overflow: hidden;
+    border-bottom: 1px solid #FF6600;
 }
-.HeaderAlgorithms:hover,.HeaderHelp:hover,
-.HeaderNodes:hover,.HeaderAlgorithms:hover {
-    background-color: cyan;
-    
-}
+ 
 .AlgorithmItemsshow,
 .NodeItemsshow{
-    margin-top: 6vh;
+    margin-top: 5.5vh;
     display: flex;
     flex-direction: column;
-    color: #181818;
+    color: white;
     position: absolute;
-    background-color: whitesmoke;
+    background-color: #262937;
+    align-items: center;
+    width: 130vw;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     list-style: none;
-    padding:0;
+    padding: 0;
 
 }
 .HeaderAlgo{
-    border-bottom: 1px solid cyan;
-    padding: 0;
-    margin: 4vh 5vw;
-    margin-bottom: -1px;
+    border-bottom: 1px solid #FF6600;
+
 }
 .Header .AlgorithmItemsshow li,
 .Header .HeaderNodes li{
-padding: 1vh 2vw;
-border: 1px solid cyan;
+padding: .5vh 2vw;
+float: left;
+border-bottom:1px solid #FF6600;
+margin-bottom: 1vh;
+cursor:pointer;
 }
-.Header .AlgorithmItemsshow li:hover,
-.Header .HeaderNodes li:hover{
- background-color: cyan;
-}
+
 .HeaderAlgorithms .algohide{
     display: none;
 }
@@ -112,16 +110,20 @@ border: 1px solid cyan;
         top:10vh;
         right:0;
         width: 100%;
-        background-color: #181818;
-        border-top: 2px solid cyan;
+
+        background-color: #262937;
+        border-top: 2px solid #FF6600;
     }
+
     .Header {
         opacity: 1;
     }
     .HeaderAlgo{
-        border: none;
-        margin: 0 ;
-            padding: 4vh 5vw;
+        display:none;
+    }
+    .MobileTitle {
+        color:white;
+        border-bottom: 1px solid #FF6600;
     }
 }
 

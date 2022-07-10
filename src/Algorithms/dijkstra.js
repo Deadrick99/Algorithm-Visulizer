@@ -9,7 +9,6 @@ export default function dijkstra(grid, startNode, finishNode) {
   heap.buildHeap(nodeArray);
   while (heap.list.length > 1) {
     const closestNode = heap.extractMin();
-    console.log(closestNode);
     //if closet node is a wall skip it
     if (closestNode.isWall) continue;
     //push node recently visited onto the return array
@@ -50,9 +49,7 @@ function getUnvistedNeighbors(node, grid) {
 export function getNodesInShortestPathOrder(finishNode) {
   const nodesInShortestPathOrder = [];
   let currentNode = finishNode;
-  console.log(!!(finishNode = null));
   while (currentNode !== null) {
-    console.log(currentNode);
     nodesInShortestPathOrder.unshift(currentNode);
     currentNode = currentNode.previousNode;
   }
