@@ -58,7 +58,12 @@ export default function Algo()  {
   function animateMaze(visitedNodesInOrder){
     for (let i =0; i<visitedNodesInOrder.length; i++){
         setTimeout(()=>{
+          if(grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isStart === false && grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isFinish===false){
           grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isWall =true;
+          }
+          else{
+            console.log("hi")
+          }
           const newGrid = grid.slice();
           setGrid(newGrid);
         },25*i)

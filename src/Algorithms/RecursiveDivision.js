@@ -21,14 +21,13 @@ function Maze(
   heightEnd,
   horizontal
 ) {
-  if (widthEnd - width < 3 || heightEnd - height < 3) return;
+  if (widthEnd - width < 2 || heightEnd - height < 2) return;
 
   //draw walls randomly in vertical direction not to interfere with start or finish node
   if (horizontal) {
     var temp = randomNumber(width, widthEnd);
     var isHole = false;
     function lWall(lWallTemp) {
-      console.log("hi");
       if (
         array.find(
           ({ col, row }) => col === lWallTemp - 1 && row === height + 1
@@ -37,7 +36,6 @@ function Maze(
           ({ col, row }) => col === lWallTemp - 1 && row === height
         ) === undefined
       ) {
-        console.log("lwall");
         if (
           array.find(
             ({ col, row }) => col === lWallTemp && row === heightEnd + 1
@@ -54,7 +52,6 @@ function Maze(
       return true;
     }
     function rWall(rWallTemp) {
-      console.log("hi");
       if (
         array.find(
           ({ col, row }) => col === rWallTemp + 1 && row === height + 1
@@ -63,7 +60,6 @@ function Maze(
           ({ col, row }) => col === rWallTemp + 1 && row === height
         ) === undefined
       ) {
-        console.log("rwall");
         if (
           array.find(
             ({ col, row }) => col === rWallTemp && row === heightEnd + 1
@@ -79,28 +75,27 @@ function Maze(
       }
       return true;
     }
-    while (
-      temp === startNode.col ||
-      temp === finishNode.col ||
-      lWall(temp) === true ||
-      rWall(temp) === true
-    ) {
+    while (lWall(temp) === true || rWall(temp) === true) {
       temp = randomNumber(width, widthEnd);
     }
     var tem = randomNumber(height, heightEnd);
-
+    var tem2 = null;
     if (isHole === true) {
       if (
         array.find(({ col, row }) => col === temp && row === heightEnd + 1) ===
         undefined
       ) {
         tem = heightEnd;
-      } else {
-        tem = height;
-      }
+        if (
+          array.find(({ col, row }) => col === temp && row === height - 1) ===
+          undefined
+        ) {
+          tem2 = height;
+        }
+      } else tem = height;
     }
     for (let i = height; i <= heightEnd; i++) {
-      if (i !== tem) {
+      if (i !== tem && i !== tem2) {
         array.push(grid[i][temp]);
       }
     }
@@ -130,7 +125,6 @@ function Maze(
   if (!horizontal) {
     let vtemp = randomNumber(height, heightEnd);
     function tWall(tWallTemp) {
-      console.log("hi");
       if (
         array.find(
           ({ col, row }) => col === width + 1 && row === tWallTemp + 1
@@ -138,12 +132,6 @@ function Maze(
         array.find(({ col, row }) => col === width && row === tWallTemp + 1) ===
           undefined
       ) {
-        console.log("twall");
-        console.log(widthEnd);
-        console.log(width);
-        console.log(height);
-        console.log(heightEnd);
-        console.log(tWallTemp);
         if (
           array.find(
             ({ col, row }) => col === widthEnd + 1 && row === tWallTemp
@@ -160,13 +148,6 @@ function Maze(
       return true;
     }
     function bWall(bWallTemp) {
-      console.log(
-        array.find(({ col, row }) => col === width + 1 && row === bWallTemp - 1)
-      );
-      console.log(
-        array.find(({ col, row }) => col === width && row === bWallTemp - 1)
-      );
-
       if (
         array.find(
           ({ col, row }) => col === width + 1 && row === bWallTemp - 1
@@ -174,7 +155,6 @@ function Maze(
         array.find(({ col, row }) => col === width && row === bWallTemp - 1) ===
           undefined
       ) {
-        console.log("bwall");
         if (
           array.find(
             ({ col, row }) => col === widthEnd + 1 && row === bWallTemp
@@ -190,27 +170,32 @@ function Maze(
       }
       return true;
     }
-    while (
-      vtemp === startNode.row ||
-      vtemp === finishNode.row ||
-      tWall(vtemp) === true ||
-      bWall(vtemp) === true
-    ) {
+    while (tWall(vtemp) === true || bWall(vtemp) === true) {
       vtemp = randomNumber(height, heightEnd);
     }
     var vtem = randomNumber(width, widthEnd);
+    var vtem2 = null;
     if (isHole === true) {
       if (
         array.find(({ col, row }) => col === widthEnd + 1 && row === vtemp) ===
         undefined
       ) {
         vtem = widthEnd;
+        if (
+          array.find(({ col, row }) => col === width - 1 && row === vtemp) ===
+          undefined
+        ) {
+          vtem2 = width;
+        }
       } else {
         vtem = width;
       }
     }
     for (let i = width; i <= widthEnd; i++) {
-      if (i !== vtem) {
+      if (i !== vtem && i !== vtem2) {
+        console.log(vtem);
+        console.log(i);
+        console.log(vtem2);
         array.push(grid[vtemp][i]);
       }
     }
@@ -245,7 +230,6 @@ function isHorizontal(width, height) {
 }
 function randomNumber(min, max) {
   var rand = Math.floor(Math.random() * (max - min)) + min;
-  console.log(rand);
   return rand;
 }
 export default RecursiveDivision;
