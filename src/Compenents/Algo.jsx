@@ -14,7 +14,7 @@ var finalNodeRow = 10;
 export default function Algo()  {
   const [grid, setGrid] = useState(initGrid);
   const [mouseIsPressed,setMouseIsPressed] = useState(false);
-  const [mazeType, setMazeType] = useState('');
+ // const [mazeType, setMazeType] = useState('');
   const [algoType, setAlgoType] = useState('');
   const [nodeType, setNodeType] = useState('');
 
@@ -148,7 +148,7 @@ export default function Algo()  {
       setNodeType(typeVal);
     }
     else if(type ==="Maze"){
-      setMazeType(typeVal);
+     // setMazeType(typeVal);
       if(typeVal === "Recursive Division")
       {
         visualizeRecursiveDivisionMaze();
