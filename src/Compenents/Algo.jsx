@@ -10,15 +10,18 @@ var startNodeCol = 15;
 var startNodeRow= 10;
 var finalNodeCol = 35;
 var finalNodeRow = 10;
-var nodeType = "";
 
 export default function Algo()  {
   const [grid, setGrid] = useState(initGrid);
   const [mouseIsPressed,setMouseIsPressed] = useState(false);
+  const [mazeType, setMazeType] = useState('');
+  const [algoType, setAlgoType] = useState('');
+  const [nodeType, setNodeType] = useState('');
 
     return (
       <div className="body">
       <Header className = "Header" onClick={(type,typeVal)=>handleHeaderClick(type,typeVal)}></Header> 
+      
         <div className="grid">         
           {Array.from(grid).map((row, rowIdx) => {
             return (
@@ -41,28 +44,33 @@ export default function Algo()  {
               
             );
           })}
-           <button className="startButton" onClick={() => visualizeDijkstra()}>
+           <button className="startButton" onClick={() => startHit()}>
           Start
-        </button>
-        <button onClick={()=>visualizeRecursiveDivisionMaze()}>click</button>
+          </button>
         </div>
         </div>
     );
-  
-  function visualizeRecursiveDivisionMaze(){
+    //function to run program whith selected algo and maze type.
+    function startHit(){
+      if (algoType === 'DIJKSTRA')
+      {
+         
+      }
+    }
+ 
+     function visualizeRecursiveDivisionMaze(){
     const startNode = grid[startNodeRow][startNodeCol];
     const finishNode = grid[finalNodeRow][finalNodeCol];
     const visitedNodesInOrder = RecursiveDivision(grid, startNode, finishNode);
     animateMaze(visitedNodesInOrder);
   }     
-  function animateMaze(visitedNodesInOrder){
+    function animateMaze(visitedNodesInOrder){
     for (let i =0; i<visitedNodesInOrder.length; i++){
         setTimeout(()=>{
           if(grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isStart === false && grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isFinish===false){
           grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isWall =true;
           }
           else{
-            console.log("hi")
           }
           const newGrid = grid.slice();
           setGrid(newGrid);
@@ -118,19 +126,39 @@ export default function Algo()  {
     }
   }
   function visualizeDijkstra() {
+    console.log(grid)
     const startNode = grid[startNodeRow][startNodeCol];
     const finishNode = grid[finalNodeRow][finalNodeCol];
+    console.log(grid[startNodeRow][startNodeCol])
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+    console.log(nodesInShortestPathOrder);
+    console.log(visitedNodesInOrder);
   }
   function handleHeaderClick(type,typeVal){
     if(type === "ALGORITHM"){
-
+      setAlgoType(typeVal);
+      if (typeVal ==="DIJKSTRA")
+      {
+        visualizeDijkstra();
+      }
     }
     else if(type === "NODE"){
-      nodeType = typeVal;
+      setNodeType(typeVal);
     }
+    else if(type ==="Maze"){
+      setMazeType(typeVal);
+      if(typeVal === "Recursive Division")
+      {
+        visualizeRecursiveDivisionMaze();
+      }
+    }
+    else if (type==="CLEAR")
+    {
+      clearBoard();
+    }
+      
 
   }
   function handleGridClick(row,col){
@@ -144,6 +172,20 @@ export default function Algo()  {
       setGrid(newGrid);
     }
 
+}
+function clearBoard(row=20, col=50){
+ for(let i = 0; i< row;i++)
+ for (let j = 0 ; j< col ;j++){
+ grid[i][j].isWall = false;
+ grid[i][j].isVisitedAnim =false;
+ grid[i][j].isShortest =false;
+ grid[i][j].isVisited = false;
+ grid[i][j].distance = Infinity;
+ grid[i][j].previousNode = null;
+ const newGrid = grid.slice();
+  setGrid(newGrid);
+ }
+console.log("hi");
 }
 
 function initGrid() {
@@ -193,11 +235,11 @@ else if(nodeType==="WALL"&&(node.isStart !== true|| node.isFinish !== true))
    finalNodeRow = row;
  }
  }
-   if(nodeType==="START"){
+   else if(nodeType==="START"){
    if((startNodeCol !== col || startNodeRow !== row) && node.isWall=== false){
 
-    newGrid[startNodeRow][startNodeCol].isStart =!newGrid[startNodeRow][startNodeCol].isStart;
-    node.isStart= !node.isStart;
+    newGrid[startNodeRow][startNodeCol].isStart = false;
+    node.isStart= true;
   startNodeCol = col;
   startNodeRow = row;
 }

@@ -1,7 +1,9 @@
 import MinHeap from "../Compenents/MinHeap.js";
-const heap = new MinHeap();
+
 //takes in a grid of Node objects, the start node and endnode for that grid and returns all the nodes the algorithm visited in order
 export default function dijkstra(grid, startNode, finishNode) {
+  const heap = new MinHeap();
+  console.log(heap);
   const visitedNodesInOrder = [];
   startNode.distance = 0;
   // to create the min heap the the first position must be null(well it makes the math easier) then we build the heap with the start node

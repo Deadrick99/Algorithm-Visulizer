@@ -19,7 +19,7 @@
 }
 
 
-.AlgorithmItems, .NodeItems{
+.AlgorithmItems, .NodeItems, .MazeItems{
     display: none;
     background-color: whitesmoke;
     min-width: 160px;
@@ -35,7 +35,7 @@
     display: flex;
     flex-direction: row;
 }
-.HeaderAlgorithms,.HeaderAlgo,.HeaderIcon,.HeaderHelp,.HeaderNodes{
+.HeaderAlgorithms,.HeaderMazes,.HeaderAlgo,.HeaderIcon,.HeaderHelp,.HeaderClear,.HeaderNodes{
     display: flex;
     margin:4vh 5vw;
     color: white;
@@ -46,7 +46,7 @@
 }
  
 .AlgorithmItemsshow,
-.NodeItemsshow{
+.NodeItemsshow ,.MazeItemsshow{
     margin-top: 5.5vh;
     display: flex;
     flex-direction: column;
@@ -66,7 +66,8 @@
 
 }
 .Header .AlgorithmItemsshow li,
-.Header .HeaderNodes li{
+.Header .HeaderNodes li,
+.Header .MazeItemsshow li{
 padding: .5vh 2vw;
 float: left;
 border-bottom:1px solid #FF6600;
@@ -86,6 +87,14 @@ cursor:pointer;
 .HeaderNodes .nodeshow{
     display: flex;
 }
+
+.HeaderMazes .nodehide{
+    display:none;
+}
+.HeaderMazes .nodeshow {
+    display: flex;
+}
+
 .MobileNavigation .Icon{
     position: absolute;
     right: 5%;
@@ -94,7 +103,7 @@ cursor:pointer;
 .Header .MobileNavigation{
     display: none;
 }
-@media (max-width: 500px) {
+@media (max-width: 670px) {
 
     .Header .MobileNavigation{
         display: flex;

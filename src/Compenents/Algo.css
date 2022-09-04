@@ -12,8 +12,16 @@ margin-top: 5vh;
 display: inline-block;
 align-self: center;
 
+}
+.selectionBar {
+list-style: none;
+display: flex;
+flex-direction: row;
+align-self:center;
 
-
+}
+.selectionBar li{
+margin-right: 10rem;
 }
 .row{
   height: 3.5vh;

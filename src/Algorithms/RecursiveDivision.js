@@ -1,5 +1,5 @@
-const array = [];
 function RecursiveDivision(grid, startNode, finishNode) {
+  const array = [];
   for (let i = 0; i < grid.length; i++) {
     array.push(grid[i][0]);
     array.push(grid[i][49]);
@@ -8,7 +8,7 @@ function RecursiveDivision(grid, startNode, finishNode) {
     array.push(grid[0][i]);
     array.push(grid[19][i]);
   }
-  Maze(grid, startNode, finishNode, 1, 1, 48, 18, isHorizontal(49, 19));
+  Maze(grid, startNode, finishNode, 1, 1, 48, 18, isHorizontal(49, 19), array);
   return array;
 }
 function Maze(
@@ -19,7 +19,8 @@ function Maze(
   height,
   widthEnd,
   heightEnd,
-  horizontal
+  horizontal,
+  array
 ) {
   if (widthEnd - width < 2 || heightEnd - height < 2) return;
 
@@ -109,7 +110,8 @@ function Maze(
       height,
       widthEnd,
       heightEnd,
-      isHorizontal(widthEnd - lWidth, heightEnd - height)
+      isHorizontal(widthEnd - lWidth, heightEnd - height),
+      array
     );
     Maze(
       grid,
@@ -119,7 +121,8 @@ function Maze(
       height,
       rWidthEnd,
       heightEnd,
-      isHorizontal(rWidthEnd - width, heightEnd - height)
+      isHorizontal(rWidthEnd - width, heightEnd - height),
+      array
     );
   }
   if (!horizontal) {
@@ -209,7 +212,8 @@ function Maze(
       tHeight,
       widthEnd,
       heightEnd,
-      isHorizontal(widthEnd - width, heightEnd - tHeight)
+      isHorizontal(widthEnd - width, heightEnd - tHeight),
+      array
     );
 
     Maze(
@@ -220,7 +224,8 @@ function Maze(
       height,
       widthEnd,
       bHeightEnd,
-      isHorizontal(widthEnd - width, bHeightEnd - height)
+      isHorizontal(widthEnd - width, bHeightEnd - height),
+      array
     );
   }
 }

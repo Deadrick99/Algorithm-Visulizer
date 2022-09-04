@@ -5,13 +5,14 @@ import { useState } from "react";
 const HeaderItems = (props) => {
   const [isAlgoUp, setIsAlgoUp] = useState(false);
   const [isNodeUp, setIsNodeUp] = useState(false);
-
+  const [isMazeUp, setIsMazeUp] = useState(false);
   const onClick = props.onClick;
 
   const handleAlgoHeaderClick = () => {
     if (isAlgoUp === false) {
       setIsAlgoUp(true);
       setIsNodeUp(false);
+      setIsMazeUp(false);
     } else {
       setIsAlgoUp(false);
     }
@@ -20,8 +21,18 @@ const HeaderItems = (props) => {
     if (isNodeUp === false) {
       setIsNodeUp(true);
       setIsAlgoUp(false);
+      setIsMazeUp(false);
     } else {
       setIsNodeUp(false);
+    }
+  };
+  const handleMazeHeaderClick = () => {
+    if (isMazeUp === false) {
+      setIsMazeUp(true);
+      setIsAlgoUp(false);
+      setIsNodeUp(false);
+    } else {
+      setIsMazeUp(false);
     }
   };
 
@@ -60,6 +71,36 @@ const HeaderItems = (props) => {
           </li>
         </ul>
       </li>
+      <li className={classes.HeaderMazes}>
+        <div
+          className={isMazeUp ? `${classes.nodesshow}` : `${classes.nodehide}`}
+          onClick={() => handleMazeHeaderClick()}
+        >
+          <BiUpArrow />
+        </div>
+        <div
+          className={isMazeUp ? `${classes.nodehide}` : `${classes.nodeshow}`}
+          onClick={() => handleMazeHeaderClick()}
+        >
+          <BiDownArrow />
+        </div>
+        Mazes
+        <ul
+          className={
+            !isMazeUp ? `${classes.MazeItems}` : `${classes.MazeItemsshow}`
+          }
+        >
+          <li
+            onClick={() => {
+              onClick("Maze", "Recursive Division");
+              props.isMobile && props.closeMobileNav();
+              setIsMazeUp(false);
+            }}
+          >
+            Recursive Division
+          </li>
+        </ul>
+      </li>
       <li className={classes.HeaderNodes}>
         <div
           className={isNodeUp ? `${classes.nodesshow}` : `${classes.nodehide}`}
@@ -73,7 +114,7 @@ const HeaderItems = (props) => {
         >
           <BiDownArrow />
         </div>
-        Node Types
+        Nodes
         <ul
           className={
             !isNodeUp ? `${classes.NodeItems}` : `${classes.NodeItemsshow}`
@@ -107,6 +148,14 @@ const HeaderItems = (props) => {
             Wall
           </li>
         </ul>
+      </li>
+      <li
+        className={classes.HeaderClear}
+        onClick={() => {
+          onClick("CLEAR", "NA");
+        }}
+      >
+        Clear
       </li>
       <li className={classes.HeaderHelp}>Help</li>
     </ul>
