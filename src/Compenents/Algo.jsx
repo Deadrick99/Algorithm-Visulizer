@@ -44,9 +44,9 @@ export default function Algo()  {
               
             );
           })}
-           <button className="startButton" onClick={() => startHit()}>
+          {/* <button className="startButton" onClick={() => startHit()}>
           Start
-          </button>
+          </button> */}
         </div>
         </div>
     );
@@ -176,6 +176,9 @@ export default function Algo()  {
 function clearBoard(row=20, col=50){
  for(let i = 0; i< row;i++)
  for (let j = 0 ; j< col ;j++){
+  if(grid[i][j].isFinish === true || grid[i][j].isStart === true)
+  {}
+  else{
  grid[i][j].isWall = false;
  grid[i][j].isVisitedAnim =false;
  grid[i][j].isShortest =false;
@@ -184,6 +187,7 @@ function clearBoard(row=20, col=50){
  grid[i][j].previousNode = null;
  const newGrid = grid.slice();
   setGrid(newGrid);
+  }
  }
 console.log("hi");
 }
