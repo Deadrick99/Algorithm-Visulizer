@@ -10,6 +10,7 @@ var startNodeCol = 15;
 var startNodeRow= 10;
 var finalNodeCol = 35;
 var finalNodeRow = 10;
+var algoran =false;
 
 export default function Algo()  {
   const [grid, setGrid] = useState(initGrid);
@@ -62,7 +63,9 @@ export default function Algo()  {
     const startNode = grid[startNodeRow][startNodeCol];
     const finishNode = grid[finalNodeRow][finalNodeCol];
     const visitedNodesInOrder = RecursiveDivision(grid, startNode, finishNode);
+    
     animateMaze(visitedNodesInOrder);
+    
   }     
     function animateMaze(visitedNodesInOrder){
     for (let i =0; i<visitedNodesInOrder.length; i++){
@@ -104,9 +107,10 @@ export default function Algo()  {
         return;
       }
       setTimeout(() => {
+        if(visitedNodesInOrder[i].isFinish !== true || visitedNodesInOrder[i].isStart !== true)
         grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isVisitedAnim =true;
-        grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isStart =false;
-        grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isFinish =false
+       // grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isStart =false;
+        //grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isFinish =false
         const newGrid = grid.slice();
         setGrid(newGrid);
       }, 10 * i);
@@ -124,17 +128,18 @@ export default function Algo()  {
         setGrid(newGrid);
       }, 10 * i);
     }
+    grid[startNodeRow][startNodeCol].isStart = true;
+    grid[finalNodeCol][finalNodeCol].isFinish = true;
+    const newGrid = grid.slice();
+        setGrid(newGrid);
   }
   function visualizeDijkstra() {
-    console.log(grid)
+    algoran = true;
     const startNode = grid[startNodeRow][startNodeCol];
     const finishNode = grid[finalNodeRow][finalNodeCol];
-    console.log(grid[startNodeRow][startNodeCol])
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
-    console.log(nodesInShortestPathOrder);
-    console.log(visitedNodesInOrder);
   }
   function handleHeaderClick(type,typeVal){
     if(type === "ALGORITHM"){
@@ -169,15 +174,23 @@ export default function Algo()  {
     }
     if((grid[row][col].isFinish !== true || grid[row][col].isStart !== true) && nodeType === "FINISH"){
       const newGrid = getNewGrid(grid, row, col);
+      if (algoran === true)
+      {
+        clearBoard();
+        visualizeDijkstra();
+      }
       setGrid(newGrid);
     }
 
 }
 function clearBoard(row=20, col=50){
+  algoran = false;
  for(let i = 0; i< row;i++)
  for (let j = 0 ; j< col ;j++){
   if(grid[i][j].isFinish === true || grid[i][j].isStart === true)
-  {}
+  {
+    console.log("hi");
+    }
   else{
  grid[i][j].isWall = false;
  grid[i][j].isVisitedAnim =false;
@@ -189,7 +202,6 @@ function clearBoard(row=20, col=50){
   setGrid(newGrid);
   }
  }
-console.log("hi");
 }
 
 function initGrid() {
