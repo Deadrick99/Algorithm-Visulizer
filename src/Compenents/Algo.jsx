@@ -52,12 +52,7 @@ export default function Algo()  {
         </div>
     );
     //function to run program whith selected algo and maze type.
-    function startHit(){
-      if (algoType === 'DIJKSTRA')
-      {
-         
-      }
-    }
+    
  
      function visualizeRecursiveDivisionMaze(){
     const startNode = grid[startNodeRow][startNodeCol];
@@ -107,14 +102,17 @@ export default function Algo()  {
         return;
       }
       setTimeout(() => {
-        if(visitedNodesInOrder[i].isFinish !== true || visitedNodesInOrder[i].isStart !== true)
+       
         grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isVisitedAnim =true;
-       // grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isStart =false;
-        //grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isFinish =false
+        grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isStart =false;
+        grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isFinish =false;
         const newGrid = grid.slice();
         setGrid(newGrid);
       }, 10 * i);
-
+      grid[startNodeRow][startNodeCol].isStart = true;
+      grid[finalNodeRow][finalNodeCol].isFinish = true;
+      const newGrid = grid.slice();
+      setGrid(newGrid);
     }
   }
   function animateShortestPath(nodesInShortestPathOrder) {
@@ -128,10 +126,13 @@ export default function Algo()  {
         setGrid(newGrid);
       }, 10 * i);
     }
-    grid[startNodeRow][startNodeCol].isStart = true;
-    grid[finalNodeCol][finalNodeCol].isFinish = true;
     const newGrid = grid.slice();
-        setGrid(newGrid);
+    newGrid[startNodeRow][startNodeCol].isShortest =false;
+    newGrid[finalNodeRow][finalNodeCol].isShortest = false;
+    newGrid[startNodeRow][startNodeCol].isStart = true;
+    newGrid[finalNodeRow][finalNodeCol].isFinish = true;
+    
+    setGrid(newGrid);
   }
   function visualizeDijkstra() {
     algoran = true;
