@@ -3,7 +3,6 @@ import MinHeap from "../Compenents/MinHeap.js";
 //takes in a grid of Node objects, the start node and endnode for that grid and returns all the nodes the algorithm visited in order
 export default function dijkstra(grid, startNode, finishNode) {
   const heap = new MinHeap();
-  console.log(heap);
   const visitedNodesInOrder = [];
   startNode.distance = 0;
   // to create the min heap the the first position must be null(well it makes the math easier) then we build the heap with the start node
@@ -17,7 +16,9 @@ export default function dijkstra(grid, startNode, finishNode) {
     visitedNodesInOrder.push(closestNode);
     closestNode.isVisited = true;
     //if we reached the finish node return nodesvisited in order
-    if (closestNode === finishNode) return visitedNodesInOrder;
+    
+    if (closestNode.isFinish === true) return visitedNodesInOrder;
+    
     //get neighbors of current node
     updateUnvisitedNieghbors(closestNode, grid, heap);
     //if our heap is empty weve exhausted all nodes with out finding the finish node return visited nodes

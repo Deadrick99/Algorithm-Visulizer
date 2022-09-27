@@ -93,8 +93,11 @@ export default function Algo()  {
     setMouseIsPressed(false);
   }
   function animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+  
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+      console.log(visitedNodesInOrder.length)
       if (i === visitedNodesInOrder.length) {
+       
         setTimeout(() => {
           animateShortestPath(nodesInShortestPathOrder);
         }, 10 * i);
@@ -104,14 +107,17 @@ export default function Algo()  {
       setTimeout(() => {
        
         grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isVisitedAnim =true;
-        grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isStart =false;
-        grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isFinish =false;
+        // grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isStart =false;
+        // grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isFinish =false;
         const newGrid = grid.slice();
         setGrid(newGrid);
       }, 10 * i);
-      grid[startNodeRow][startNodeCol].isStart = true;
-      grid[finalNodeRow][finalNodeCol].isFinish = true;
+      
       const newGrid = grid.slice();
+      // newGrid[startNodeRow][startNodeCol].isVisitedAnim =false;
+      // newGrid[finalNodeRow][finalNodeCol].isVisitedAnim = false;
+      // newGrid[startNodeRow][startNodeCol].isStart = true;
+      // newGrid[finalNodeRow][finalNodeCol].isFinish = true;
       setGrid(newGrid);
     }
   }
@@ -120,24 +126,25 @@ export default function Algo()  {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         grid[nodesInShortestPathOrder[i].row][nodesInShortestPathOrder[i].col].isShortest =true;
-        grid[nodesInShortestPathOrder[i].row][nodesInShortestPathOrder[i].col].isStart =false;
-        grid[nodesInShortestPathOrder[i].row][nodesInShortestPathOrder[i].col].isFinish =false
+        // grid[nodesInShortestPathOrder[i].row][nodesInShortestPathOrder[i].col].isStart =false;
+        // grid[nodesInShortestPathOrder[i].row][nodesInShortestPathOrder[i].col].isFinish =false
         const newGrid = grid.slice();
+        // newGrid[startNodeRow][startNodeCol].isShortest =false;
+        // newGrid[finalNodeRow][finalNodeCol].isShortest = false;
+        // newGrid[startNodeRow][startNodeCol].isStart = true;
+        // newGrid[finalNodeRow][finalNodeCol].isFinish = true;
+        
         setGrid(newGrid);
       }, 10 * i);
     }
     const newGrid = grid.slice();
-    newGrid[startNodeRow][startNodeCol].isShortest =false;
-    newGrid[finalNodeRow][finalNodeCol].isShortest = false;
-    newGrid[startNodeRow][startNodeCol].isStart = true;
-    newGrid[finalNodeRow][finalNodeCol].isFinish = true;
-    
     setGrid(newGrid);
   }
   function visualizeDijkstra() {
     algoran = true;
     const startNode = grid[startNodeRow][startNodeCol];
     const finishNode = grid[finalNodeRow][finalNodeCol];
+    console.log(finishNode);
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
@@ -163,6 +170,7 @@ export default function Algo()  {
     else if (type==="CLEAR")
     {
       clearBoard();
+      algoran = false;
     }
       
 
@@ -175,34 +183,36 @@ export default function Algo()  {
     }
     if((grid[row][col].isFinish !== true || grid[row][col].isStart !== true) && nodeType === "FINISH"){
       const newGrid = getNewGrid(grid, row, col);
-      if (algoran === true)
-      {
-        clearBoard();
-        visualizeDijkstra();
-      }
+      
       setGrid(newGrid);
     }
 
 }
-function clearBoard(row=20, col=50){
-  algoran = false;
- for(let i = 0; i< row;i++)
- for (let j = 0 ; j< col ;j++){
+function clearBoardNoWalls(){
+ for(let i = 0; i< 20;i++)
+ for (let j = 0 ; j<50 ;j++){
   if(grid[i][j].isFinish === true || grid[i][j].isStart === true)
   {
     console.log("hi");
     }
   else{
- grid[i][j].isWall = false;
+
  grid[i][j].isVisitedAnim =false;
  grid[i][j].isShortest =false;
  grid[i][j].isVisited = false;
  grid[i][j].distance = Infinity;
  grid[i][j].previousNode = null;
- const newGrid = grid.slice();
-  setGrid(newGrid);
+
   }
  }
+ const newGrid = grid.slice();
+ setGrid(newGrid);
+}
+function clearBoard(){
+  
+
+const newGrid = initGrid();
+ setGrid(newGrid);
 }
 
 function initGrid() {
@@ -214,6 +224,7 @@ function initGrid() {
     }
     grid.push(nodesRow);
   }
+ 
   return grid;
 };
  function createNode  (col, row) {
@@ -248,9 +259,14 @@ else if(nodeType==="WALL"&&(node.isStart !== true|| node.isFinish !== true))
      if((finalNodeCol !== col || finalNodeRow !== row) && node.isWall=== false){
       newGrid[finalNodeRow][finalNodeCol].isFinish=false;
       node.isFinish=true;
-   finalNodeCol = col;
-   finalNodeRow = row;
- }
+      finalNodeCol = col;
+      finalNodeRow = row;
+      if (algoran === true)
+      {
+        clearBoardNoWalls();
+        visualizeDijkstra();
+      }
+      }
  }
    else if(nodeType==="START"){
    if((startNodeCol !== col || startNodeRow !== row) && node.isWall=== false){
