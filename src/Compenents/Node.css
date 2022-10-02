@@ -39,6 +39,12 @@
     animation-fill-mode: forwards;
     animation-play-state: running;
 }
+.node-fast-visited{
+    background-color: rgba(0, 190, 218, .75);
+}
+.node-fast-shortest{
+        background-color: yellow;
+}
 @keyframes visitedAnimation {
     0%{
         transform: scale(0.3);

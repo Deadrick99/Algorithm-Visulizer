@@ -11,6 +11,7 @@ var startNodeRow= 10;
 var finalNodeCol = 35;
 var finalNodeRow = 10;
 var algoran =false;
+var fast=false;
 
 export default function Algo()  {
   const [grid, setGrid] = useState(initGrid);
@@ -110,39 +111,48 @@ export default function Algo()  {
       setTimeout(() => {
        
         grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isVisitedAnim =true;
-        // grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isStart =false;
-        // grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isFinish =false;
         const newGrid = grid.slice();
         setGrid(newGrid);
       }, 10 * i);
       
       const newGrid = grid.slice();
-      // newGrid[startNodeRow][startNodeCol].isVisitedAnim =false;
-      // newGrid[finalNodeRow][finalNodeCol].isVisitedAnim = false;
-      // newGrid[startNodeRow][startNodeCol].isStart = true;
-      // newGrid[finalNodeRow][finalNodeCol].isFinish = true;
       setGrid(newGrid);
     }
   }
   function animateShortestPath(nodesInShortestPathOrder) {
-    console.log("animateShortestPath");
-    console.log(nodesInShortestPathOrder);
+  
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         grid[nodesInShortestPathOrder[i].row][nodesInShortestPathOrder[i].col].isShortest =true;
-        // grid[nodesInShortestPathOrder[i].row][nodesInShortestPathOrder[i].col].isStart =false;
-        // grid[nodesInShortestPathOrder[i].row][nodesInShortestPathOrder[i].col].isFinish =false
         const newGrid = grid.slice();
-        // newGrid[startNodeRow][startNodeCol].isShortest =false;
-        // newGrid[finalNodeRow][finalNodeCol].isShortest = false;
-        // newGrid[startNodeRow][startNodeCol].isStart = true;
-        // newGrid[finalNodeRow][finalNodeCol].isFinish = true;
-        
         setGrid(newGrid);
       }, 10 * i);
     }
     const newGrid = grid.slice();
     setGrid(newGrid);
+  }
+  function fastAnimate(visitedNodesInOrder, nodesInShortestPathOrder){
+      for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+      if (i === visitedNodesInOrder.length) {
+
+          fastAnimateShortestPath(nodesInShortestPathOrder);
+        return;
+      }
+ 
+        grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isFastVisited =true;
+        var newGrid = grid.slice();
+        setGrid(newGrid);      
+    }
+  }
+   function fastAnimateShortestPath(nodesInShortestPathOrder) {
+    
+    for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+      console.log("for")
+      grid[nodesInShortestPathOrder[i].row][nodesInShortestPathOrder[i].col].isFastVisited =false;
+        grid[nodesInShortestPathOrder[i].row][nodesInShortestPathOrder[i].col].isFastShortest =true;
+        var newGrid = grid.slice();
+        setGrid(newGrid);
+    }
   }
   function visualizeDijkstra() {
     console.log("Visualize Dijkstra");
@@ -151,7 +161,14 @@ export default function Algo()  {
     const finishNode = grid[finalNodeRow][finalNodeCol];
     var visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    if(fast){
+    fastAnimate(visitedNodesInOrder, nodesInShortestPathOrder);
+    }
+    else
+    {
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+    }
+    fast = true;
   }
   function handleHeaderClick(type,typeVal){
     console.log("HandleHEaderClick");
@@ -160,6 +177,7 @@ export default function Algo()  {
       if (typeVal ==="DIJKSTRA")
       {
         visualizeDijkstra();
+        
       }
     }
     else if(type === "NODE"){
@@ -176,6 +194,7 @@ export default function Algo()  {
     {
       clearBoard();
       algoran = false;
+      fast =false;
     }
       
 
@@ -191,11 +210,7 @@ export default function Algo()  {
       const newGrid = getNewGrid(grid, row, col);
       
       setGrid(newGrid);
-      if(algoran===true)
-      {
-        clearBoardNoWalls()
-        visualizeDijkstra()
-      }
+     
     }
 
 }
@@ -210,6 +225,8 @@ function clearBoardNoWalls(){
  grid[i][j].isVisited = false;
  grid[i][j].distance = Infinity;
  grid[i][j].previousNode = null;
+ grid[i][j].isFastVisited =false;
+ grid[i][j].isFastShortest = false;
 
   }
  }
@@ -218,7 +235,6 @@ function clearBoardNoWalls(){
  setGrid(newGrid);
 }
 function clearBoard(){
-  console.log("ClearBoard");
 const newGrid = initGrid();
  setGrid(newGrid);
 }
@@ -248,6 +264,8 @@ function initGrid() {
        isVisitedAnim : false,
        previousNode:null,
        distance: Infinity,
+       isFastVisited :false,
+       isFastShortest: false,
  }
   return (node);
   
@@ -260,10 +278,20 @@ function initGrid() {
 
   if(nodeType==="WALL" && node.isWall === true){
     node.isWall =false;
+     if(algoran===true)
+      {
+        clearBoardNoWalls()
+        visualizeDijkstra()
+      }
  }
 else if(nodeType==="WALL"&&(node.isStart !== true|| node.isFinish !== true))
   {
      node.isWall = true;
+      if(algoran===true)
+      {
+        clearBoardNoWalls()
+        visualizeDijkstra()
+      }
   }
     else if(nodeType==="FINISH"){
      if((finalNodeCol !== col || finalNodeRow !== row) && node.isWall=== false){
@@ -271,7 +299,11 @@ else if(nodeType==="WALL"&&(node.isStart !== true|| node.isFinish !== true))
       node.isFinish=true;
       finalNodeCol = col;
       finalNodeRow = row;
-      
+       if(algoran===true)
+      {
+        clearBoardNoWalls()
+        visualizeDijkstra()
+      }
       }
  }
    else if(nodeType==="START"){
@@ -281,6 +313,11 @@ else if(nodeType==="WALL"&&(node.isStart !== true|| node.isFinish !== true))
     node.isStart= true;
   startNodeCol = col;
   startNodeRow = row;
+   if(algoran===true)
+      {
+        clearBoardNoWalls()
+        visualizeDijkstra()
+      }
 }
     
    }
