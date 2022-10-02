@@ -17,7 +17,7 @@ export default function Algo()  {
   const [grid, setGrid] = useState(initGrid);
   const [mouseIsPressed,setMouseIsPressed] = useState(false);
  // const [mazeType, setMazeType] = useState('');
-  const [algoType, setAlgoType] = useState('');
+ // const [algoType, setAlgoType] = useState('');
   const [nodeType, setNodeType] = useState('');
 
     return (
@@ -173,7 +173,7 @@ export default function Algo()  {
   function handleHeaderClick(type,typeVal){
     console.log("HandleHEaderClick");
     if(type === "ALGORITHM"){
-      setAlgoType(typeVal);
+      //setAlgoType(typeVal);
       if (typeVal ==="DIJKSTRA")
       {
         visualizeDijkstra();
