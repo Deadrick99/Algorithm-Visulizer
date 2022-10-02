@@ -196,9 +196,6 @@ function Maze(
     }
     for (let i = width; i <= widthEnd; i++) {
       if (i !== vtem && i !== vtem2) {
-        console.log(vtem);
-        console.log(i);
-        console.log(vtem2);
         array.push(grid[vtemp][i]);
       }
     }

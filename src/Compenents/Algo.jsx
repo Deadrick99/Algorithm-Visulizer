@@ -33,7 +33,7 @@ export default function Algo()  {
                      <Node key= {nodeIdx} node = {node} 
                       onMouseDown ={(row, col) => handleMouseDown(row, col)}
                       onMouseEnter ={(row, col) => handleMouseEnter(row, col,mouseIsPressed)}
-                      onMouseUp={() => handleMouseUp()}
+                     onMouseUp={() => handleMouseUp()}
                       onClick = {(row,col) => handleGridClick(row,col)}></Node>
                     )
 
@@ -55,6 +55,7 @@ export default function Algo()  {
     
  
      function visualizeRecursiveDivisionMaze(){
+      console.log("visuale recursion");
     const startNode = grid[startNodeRow][startNodeCol];
     const finishNode = grid[finalNodeRow][finalNodeCol];
     const visitedNodesInOrder = RecursiveDivision(grid, startNode, finishNode);
@@ -63,6 +64,7 @@ export default function Algo()  {
     
   }     
     function animateMaze(visitedNodesInOrder){
+      console.log("animate maze");
     for (let i =0; i<visitedNodesInOrder.length; i++){
         setTimeout(()=>{
           if(grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isStart === false && grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isFinish===false){
@@ -76,7 +78,7 @@ export default function Algo()  {
     }
   }     
   function handleMouseDown(row, col) {
- 
+      console.log("handle mouse down");
       const newGrid = getNewGrid(grid, row, col);
         setGrid(newGrid);
         setMouseIsPressed(true);
@@ -84,18 +86,19 @@ export default function Algo()  {
  
   
   function handleMouseEnter(row, col,mouseIsPressed) {
+    console.log("handle mouse enter");
      if (!mouseIsPressed) {
      return;}
        const newGrid = getNewGrid(grid, row, col);
        setGrid(newGrid);
     }
   function handleMouseUp() {
+    console.log("handle Mouse up");
     setMouseIsPressed(false);
   }
   function animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
-  
+  console.log("Aniumate Dijkstar");
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
-      console.log(visitedNodesInOrder.length)
       if (i === visitedNodesInOrder.length) {
        
         setTimeout(() => {
@@ -122,6 +125,7 @@ export default function Algo()  {
     }
   }
   function animateShortestPath(nodesInShortestPathOrder) {
+    console.log("animateShortestPath");
     console.log(nodesInShortestPathOrder);
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
@@ -141,15 +145,16 @@ export default function Algo()  {
     setGrid(newGrid);
   }
   function visualizeDijkstra() {
+    console.log("Visualize Dijkstra");
     algoran = true;
     const startNode = grid[startNodeRow][startNodeCol];
     const finishNode = grid[finalNodeRow][finalNodeCol];
-    console.log(finishNode);
-    const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+    var visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
   function handleHeaderClick(type,typeVal){
+    console.log("HandleHEaderClick");
     if(type === "ALGORITHM"){
       setAlgoType(typeVal);
       if (typeVal ==="DIJKSTRA")
@@ -176,6 +181,7 @@ export default function Algo()  {
 
   }
   function handleGridClick(row,col){
+    console.log("handleGridClick");
 
    if((grid[row][col].isStart !== true || grid[row][col].isFinish !== true) && nodeType === "START"){
       const newGrid = getNewGrid(grid, row, col);
@@ -185,17 +191,19 @@ export default function Algo()  {
       const newGrid = getNewGrid(grid, row, col);
       
       setGrid(newGrid);
+      if(algoran===true)
+      {
+        clearBoardNoWalls()
+        visualizeDijkstra()
+      }
     }
 
 }
 function clearBoardNoWalls(){
- for(let i = 0; i< 20;i++)
+  console.log("clearboardnowwalls");
+ for(let i = 0; i< 20;i++){
  for (let j = 0 ; j<50 ;j++){
-  if(grid[i][j].isFinish === true || grid[i][j].isStart === true)
-  {
-    console.log("hi");
-    }
-  else{
+ 
 
  grid[i][j].isVisitedAnim =false;
  grid[i][j].isShortest =false;
@@ -205,17 +213,18 @@ function clearBoardNoWalls(){
 
   }
  }
+
  const newGrid = grid.slice();
  setGrid(newGrid);
 }
 function clearBoard(){
-  
-
+  console.log("ClearBoard");
 const newGrid = initGrid();
  setGrid(newGrid);
 }
 
 function initGrid() {
+  console.log("InitGrid");
   const grid = [];
   for (let row = 0; row < 20; row++) {
     const nodesRow = [];
@@ -228,6 +237,7 @@ function initGrid() {
   return grid;
 };
  function createNode  (col, row) {
+  console.log("createNode");
   const node = {
        col,
        row,
@@ -244,7 +254,7 @@ function initGrid() {
 };
 
  function getNewGrid (grid, row, col)  {
-  
+  console.log("getNewGrid");
   var newGrid = [...grid];
   var node = newGrid[row][col];
 
@@ -261,11 +271,7 @@ else if(nodeType==="WALL"&&(node.isStart !== true|| node.isFinish !== true))
       node.isFinish=true;
       finalNodeCol = col;
       finalNodeRow = row;
-      if (algoran === true)
-      {
-        clearBoardNoWalls();
-        visualizeDijkstra();
-      }
+      
       }
  }
    else if(nodeType==="START"){

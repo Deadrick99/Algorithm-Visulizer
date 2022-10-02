@@ -14,11 +14,16 @@ export default function dijkstra(grid, startNode, finishNode) {
     if (closestNode.isWall) continue;
     //push node recently visited onto the return array
     visitedNodesInOrder.push(closestNode);
+    // console.log(visitedNodesInOrder.length);
     closestNode.isVisited = true;
     //if we reached the finish node return nodesvisited in order
-    
+    if (
+      closestNode.row === finishNode.row &&
+      closestNode.col === finishNode.col
+    )
+      console.log(closestNode.isFinish);
     if (closestNode.isFinish === true) return visitedNodesInOrder;
-    
+
     //get neighbors of current node
     updateUnvisitedNieghbors(closestNode, grid, heap);
     //if our heap is empty weve exhausted all nodes with out finding the finish node return visited nodes
@@ -30,6 +35,7 @@ export default function dijkstra(grid, startNode, finishNode) {
 // function to get neighbors of closest node  for every neighbor it updates that neighbors distance, .previosNode, and isVisited
 // prop then inserts that node in heap of nodes to visit
 function updateUnvisitedNieghbors(node, grid, heap) {
+  //console.log("Dijkstra update unvisited");
   const unvisitedNeighbors = getUnvistedNeighbors(node, grid);
   for (const neighbor of unvisitedNeighbors) {
     neighbor.distance = node.distance + 1;
@@ -40,16 +46,20 @@ function updateUnvisitedNieghbors(node, grid, heap) {
 }
 // gets neighbors of current node that havnt been visited checks for edges of grid
 function getUnvistedNeighbors(node, grid) {
+  //console.log("Dijkstra get unvisited");
   const neighbors = [];
   const { col, row } = node;
   if (row > 0) neighbors.push(grid[row - 1][col]);
   if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
   if (col > 0) neighbors.push(grid[row][col - 1]);
   if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
-  return neighbors.filter((neighbor) => !neighbor.isVisited);
+  return neighbors.filter(
+    (neighbor) => !neighbor.isVisited && !neighbor.isWall
+  );
 }
 //returns an array representing the shortest path by starting at the finish node and pushing the previos node onto the stack until we reach the start node
 export function getNodesInShortestPathOrder(finishNode) {
+  //console.log("Dijkstra shortest path");
   const nodesInShortestPathOrder = [];
   let currentNode = finishNode;
   while (currentNode !== null) {
