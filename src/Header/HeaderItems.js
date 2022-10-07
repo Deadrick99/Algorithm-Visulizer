@@ -69,6 +69,15 @@ const HeaderItems = (props) => {
           >
             Dijkstra
           </li>
+          <li
+            onClick={() => {
+              onClick("ALGORITHM", "ASTAR");
+              props.isMobile && props.closeMobileNav();
+              setIsAlgoUp(false);
+            }}
+          >
+            A*
+          </li>
         </ul>
       </li>
       <li className={classes.HeaderMazes}>

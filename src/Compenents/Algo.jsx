@@ -5,6 +5,7 @@ import Node from "./Node";
 import dijkstra from "../Algorithms/dijkstra";
 import Header from "../Header/Header";
 import RecursiveDivision from "../Algorithms/RecursiveDivision";
+import aStar from "../Algorithms/Astar";
 
 var startNodeCol = 15;
 var startNodeRow= 10;
@@ -56,7 +57,7 @@ export default function Algo()  {
     
  
      function visualizeRecursiveDivisionMaze(){
-      console.log("visuale recursion");
+     
     const startNode = grid[startNodeRow][startNodeCol];
     const finishNode = grid[finalNodeRow][finalNodeCol];
     const visitedNodesInOrder = RecursiveDivision(grid, startNode, finishNode);
@@ -65,7 +66,7 @@ export default function Algo()  {
     
   }     
     function animateMaze(visitedNodesInOrder){
-      console.log("animate maze");
+     
     for (let i =0; i<visitedNodesInOrder.length; i++){
         setTimeout(()=>{
           if(grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isStart === false && grid[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].isFinish===false){
@@ -79,7 +80,7 @@ export default function Algo()  {
     }
   }     
   function handleMouseDown(row, col) {
-      console.log("handle mouse down");
+
       const newGrid = getNewGrid(grid, row, col);
         setGrid(newGrid);
         setMouseIsPressed(true);
@@ -87,18 +88,18 @@ export default function Algo()  {
  
   
   function handleMouseEnter(row, col,mouseIsPressed) {
-    console.log("handle mouse enter");
+ 
      if (!mouseIsPressed) {
      return;}
        const newGrid = getNewGrid(grid, row, col);
        setGrid(newGrid);
     }
   function handleMouseUp() {
-    console.log("handle Mouse up");
+   
     setMouseIsPressed(false);
   }
   function animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
-  console.log("Aniumate Dijkstar");
+ 
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
        
@@ -147,20 +148,36 @@ export default function Algo()  {
    function fastAnimateShortestPath(nodesInShortestPathOrder) {
     
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-      console.log("for")
       grid[nodesInShortestPathOrder[i].row][nodesInShortestPathOrder[i].col].isFastVisited =false;
         grid[nodesInShortestPathOrder[i].row][nodesInShortestPathOrder[i].col].isFastShortest =true;
         var newGrid = grid.slice();
         setGrid(newGrid);
     }
   }
+  function visualizeAStar(){
+    algoran = true;
+    const startNode = grid[startNodeRow][startNodeCol];
+    const finishNode = grid[finalNodeRow][finalNodeCol];
+    var visitedNodesInOrder = aStar(grid, startNode, finishNode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    console.log(nodesInShortestPathOrder.length)
+    if(fast){
+    fastAnimate(visitedNodesInOrder, nodesInShortestPathOrder);
+    }
+    else
+    {
+    animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+    }
+    fast = true;
+  }
+  
   function visualizeDijkstra() {
-    console.log("Visualize Dijkstra");
     algoran = true;
     const startNode = grid[startNodeRow][startNodeCol];
     const finishNode = grid[finalNodeRow][finalNodeCol];
     var visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    console.log(nodesInShortestPathOrder.length)
     if(fast){
     fastAnimate(visitedNodesInOrder, nodesInShortestPathOrder);
     }
@@ -171,13 +188,15 @@ export default function Algo()  {
     fast = true;
   }
   function handleHeaderClick(type,typeVal){
-    console.log("HandleHEaderClick");
     if(type === "ALGORITHM"){
       //setAlgoType(typeVal);
       if (typeVal ==="DIJKSTRA")
       {
         visualizeDijkstra();
         
+      }
+      if (typeVal === "ASTAR"){
+        visualizeAStar();
       }
     }
     else if(type === "NODE"){
@@ -200,7 +219,7 @@ export default function Algo()  {
 
   }
   function handleGridClick(row,col){
-    console.log("handleGridClick");
+
 
    if((grid[row][col].isStart !== true || grid[row][col].isFinish !== true) && nodeType === "START"){
       const newGrid = getNewGrid(grid, row, col);
@@ -215,7 +234,7 @@ export default function Algo()  {
 
 }
 function clearBoardNoWalls(){
-  console.log("clearboardnowwalls");
+
  for(let i = 0; i< 20;i++){
  for (let j = 0 ; j<50 ;j++){
  
@@ -240,7 +259,7 @@ const newGrid = initGrid();
 }
 
 function initGrid() {
-  console.log("InitGrid");
+
   const grid = [];
   for (let row = 0; row < 20; row++) {
     const nodesRow = [];
@@ -253,7 +272,7 @@ function initGrid() {
   return grid;
 };
  function createNode  (col, row) {
-  console.log("createNode");
+
   const node = {
        col,
        row,
@@ -272,7 +291,7 @@ function initGrid() {
 };
 
  function getNewGrid (grid, row, col)  {
-  console.log("getNewGrid");
+
   var newGrid = [...grid];
   var node = newGrid[row][col];
 
