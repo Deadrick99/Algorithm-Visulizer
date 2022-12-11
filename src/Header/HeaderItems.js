@@ -166,7 +166,6 @@ const HeaderItems = (props) => {
       >
         Clear
       </li>
-      <li className={classes.HeaderHelp}>Help</li>
     </ul>
   );
 };

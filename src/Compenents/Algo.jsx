@@ -13,6 +13,7 @@ var finalNodeCol = 35;
 var finalNodeRow = 10;
 var algoran =false;
 var fast=false;
+var type, typeVal;
 
 export default function Algo()  {
   const [grid, setGrid] = useState(initGrid);
@@ -187,7 +188,9 @@ export default function Algo()  {
     }
     fast = true;
   }
-  function handleHeaderClick(type,typeVal){
+  function handleHeaderClick(pType,pTypeVal){
+    type = pType;
+    typeVal= pTypeVal;
     if(type === "ALGORITHM"){
       //setAlgoType(typeVal);
       if (typeVal ==="DIJKSTRA")
@@ -300,7 +303,7 @@ function initGrid() {
      if(algoran===true)
       {
         clearBoardNoWalls()
-        visualizeDijkstra()
+        handleHeaderClick(type, typeVal)
       }
  }
 else if(nodeType==="WALL"&&(node.isStart !== true|| node.isFinish !== true))
@@ -309,7 +312,7 @@ else if(nodeType==="WALL"&&(node.isStart !== true|| node.isFinish !== true))
       if(algoran===true)
       {
         clearBoardNoWalls()
-        visualizeDijkstra()
+        handleHeaderClick(type, typeVal)
       }
   }
     else if(nodeType==="FINISH"){
@@ -321,7 +324,7 @@ else if(nodeType==="WALL"&&(node.isStart !== true|| node.isFinish !== true))
        if(algoran===true)
       {
         clearBoardNoWalls()
-        visualizeDijkstra()
+        handleHeaderClick(type, typeVal)
       }
       }
  }
@@ -335,7 +338,7 @@ else if(nodeType==="WALL"&&(node.isStart !== true|| node.isFinish !== true))
    if(algoran===true)
       {
         clearBoardNoWalls()
-        visualizeDijkstra()
+        handleHeaderClick(type, typeVal)
       }
 }
     
